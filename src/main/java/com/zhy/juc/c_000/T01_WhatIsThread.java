@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * @ClassName: T01_WhatIsThread
  * @Author: zhy
- * @Description: TODO 留下注释吧
+ * @Description:
  * @Date: 2020/7/16 16:50
  * @Version: 1.0
  **/
