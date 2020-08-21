@@ -1,6 +1,6 @@
 package com.zhy.juc.c_019_HelloUnSafe;
 
-import sun.misc.Unsafe;
+// import sun.misc.Unsafe;
 
 /**
  * @ClassName T01_HelloUnsafe
@@ -19,10 +19,10 @@ public class T01_HelloUnsafe {
     }
 
     public static void main(String[] args) throws InstantiationException {
-        Unsafe unsafe = Unsafe.getUnsafe();
+        /*Unsafe unsafe = Unsafe.getUnsafe();
         M m = (M)unsafe.allocateInstance(M.class);
         m.i = 9;
-        System.out.println(m.i);
+        System.out.println(m.i);*/
     }
 
 }
