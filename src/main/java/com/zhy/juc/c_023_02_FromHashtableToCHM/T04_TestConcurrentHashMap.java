@@ -46,17 +46,17 @@ public class T04_TestConcurrentHashMap {
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-        MyThread[] threads = new MyThread[THREAD_COUNT];
+        Thread[] threads = new Thread[THREAD_COUNT];
 
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new MyThread(i*(count/THREAD_COUNT));
         }
 
-        for (MyThread thread:threads) {
+        for (Thread thread:threads) {
             thread.start();
         }
 
-        for (MyThread thread:
+        for (Thread thread:
                 threads) {
             try {
                 thread.join();
@@ -67,5 +67,26 @@ public class T04_TestConcurrentHashMap {
         long end = System.currentTimeMillis();
         System.out.println(end - start);
         System.out.println(hm.size());
+
+        start = System.currentTimeMillis();
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(()->{
+                for (int j = 0; j < 10000000; j++) {
+                    hm.get(keys[10]);
+                }
+            });
+        }
+        for(Thread t : threads) {
+            t.start();
+        }
+        for(Thread t : threads) {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        end = System.currentTimeMillis();
+        System.out.println(end - start);
     }
 }

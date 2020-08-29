@@ -43,18 +43,18 @@ public class T01_TestHashTable {
 
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
-        MyThread[] threads = new MyThread[THREAD_CONUT];
+        Thread[] threads = new Thread[THREAD_CONUT];
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new MyThread(i * (Constants.COUNT / THREAD_CONUT));
         }
 
-        for (MyThread thread :
+        for (Thread thread :
                 threads) {
             thread.start();
         }
 
 
-        for (MyThread thread :
+        for (Thread thread :
                 threads) {
             try {
                 thread.join();
@@ -66,6 +66,34 @@ public class T01_TestHashTable {
         long end = System.currentTimeMillis();
         System.out.println(end - start);
         System.out.println(ht.size());
+
+       start = System.currentTimeMillis();
+        // gradle 编译这里出现问题
+        // Process 'command 'D:/Program Files/java/jdk1.8.0_191/bin/java.exe'' finished with non-zero exit value 1
+        for (int i = 0; i < threads.length; i++) {
+            threads[i] = new Thread(()->{
+                for (int j = 0; j < 10000000; j++) {
+                    ht.get(keys[10]);
+                }
+            });
+        }
+
+        for (Thread thread:
+             threads) {
+            thread.start();
+        }
+
+        for (Thread thread:
+                threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+       end = System.currentTimeMillis();
+        System.out.println(end - start);
 
     }
 }
